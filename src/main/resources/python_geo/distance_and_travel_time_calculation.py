@@ -22,7 +22,7 @@ def calculate_distance_and_travel_time(input1, input2, travel_mode="driving"):
                      }
         result = requests.get(google_distance_matrix_base_url, params = params_dic)
         distance_matrix_json = json.loads(result.text)
-        print(distance_matrix_json)
+        # print(distance_matrix_json) # uncomment this line if you want to see what Google returns
 
         distance = distance_matrix_json['rows'][0]['elements'][0]['distance']['value'] / 1000 * 0.621371
         travel_time = distance_matrix_json['rows'][0]['elements'][0]['duration']['value'] / 60
@@ -46,6 +46,17 @@ def is_float(string):
 
 ## The codes takes two, three, or four parameters. They can be two addresses, one address + lat & lon, and
 ## two lat & lon pairs.
+    ## Example 1:
+    ## python3 distance_and_travel_time_calculation.py "7940 Jones Branch Dr, Tysons, VA 22102" "3101 Wisconsin Ave NW, Washington, DC 20016"
+    ## Example 2:
+    ## python3 distance_and_travel_time_calculation.py "7940 Jones Branch Dr, Tysons, VA 22102" 38.930206 -77.0732444
+    ## Example 3:
+    ## python3 distance_and_travel_time_calculation.py 38.930206 -77.0732444 "7940 Jones Branch Dr, Tysons, VA 22102"
+    ## Example 4:
+    ## python3 distance_and_travel_time_calculation.py 38.930206 -77.0732444 38.930379 -77.2162014
+## Example output (distance in miles, travel time in minutes)
+## distance: 9.733776715   travel time: 24.433333333333334
+
 if __name__ == "__main__":
     google_distance_matrix_base_url = 'https://maps.googleapis.com/maps/api/distancematrix/json?'
     with open("google_api_key.txt") as file:

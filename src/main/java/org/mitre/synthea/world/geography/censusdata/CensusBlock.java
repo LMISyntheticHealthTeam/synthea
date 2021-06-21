@@ -1,20 +1,29 @@
 package org.mitre.synthea.world.geography.censusdata;
 
+import java.io.IOException;
 import java.awt.geom.Point2D;
 import java.util.SortedMap;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+import org.mitre.synthea.helpers.Config;
+import org.mitre.synthea.helpers.SimpleCSV;
+import org.mitre.synthea.helpers.Utilities;
 
 /**
  * CensusBlock class 
  */
 public class CensusBlock {
-    public String id;
+    public String geoid;
     public String tract_id;
     public CensusTract tract;
     public Point2D.Double coordinate;
 
     /// Store Blocks sorted by their coordinates in order to quickly find
     /// the nearest Census Block to a given point
-    static SortedMap<Point2D.Double, CensusBlock> coordinateToBlock;
+    static TreeMap<Point2D.Double, CensusBlock> coordinateToBlock = new TreeMap<Point2D.Double, CensusBlock>();
 
     /**
      * Determine which CensusBlock stored in the coordinateToBlock map
@@ -57,7 +66,46 @@ public class CensusBlock {
 
     }
 
-    CensusTract getTract(){
+    public static HashMap<String, CensusBlock> load(String state) throws IOException {
+        String filename = Config.get("generate.census.block_file");
+        String csv = Utilities.readResource(filename);
+
+        List<? extends Map<String,String>> blocksCsv = SimpleCSV.parse(csv);
+
+        HashMap<String, CensusBlock> map = new HashMap<String, CensusBlock>();
+
+        for (Map<String, String> blocksLine : blocksCsv) {
+            String geoid = blocksLine.get("GEOID20");
+            String state_name = blocksLine.get("state_name");
+
+            if (state != null && state.equalsIgnoreCase(state_name)) {
+                CensusBlock parsed = csvLineToCensusBlock(blocksLine);
+
+                map.put(geoid, parsed);
+                coordinateToBlock.put(parsed.coordinate, parsed);
+            }
+        }
+        
+        return map;
+    }
+
+    static CensusBlock csvLineToCensusBlock(Map<String, String> csvline) {
+
+        CensusBlock b = new CensusBlock();
+
+        b.geoid = csvline.get("GEOID20");
+        b.tract_id = b.geoid.substring(0, b.geoid.length() - 4);
+        b.tract = CensusTract.getTractByGeoid(b.tract_id);
+
+        b.coordinate = new Point2D.Double(
+            Double.parseDouble(csvline.get("INTPTLON20")),
+            Double.parseDouble(csvline.get("INTPTLAT20"))
+        );
+
+        return b;
+    }
+
+    public CensusTract getTract(){
         return tract;
     }
 

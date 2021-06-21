@@ -53,6 +53,11 @@ import org.mitre.synthea.world.concepts.VitalSign;
 import org.mitre.synthea.world.geography.Demographics;
 import org.mitre.synthea.world.geography.Location;
 
+import org.mitre.synthea.world.geography.censusdata.CensusBlock;
+import org.mitre.synthea.world.geography.censusdata.CensusTract;
+
+import java.io.IOException;
+
 /**
  * Generator creates a population by running the generic modules each timestep per Person.
  */
@@ -281,6 +286,15 @@ public class Generator implements RandomNumberGenerator {
    * Generate the population, using the currently set configuration settings.
    */
   public void run() {
+
+    try {
+      CensusTract.load("Maine");
+      CensusBlock.load("Maine");
+     
+    }
+    catch(IOException e) {
+      return;
+    }
 
     // Import the fixed patient demographics records file, if a file path is given.
     if (this.options.fixedRecordPath != null) {

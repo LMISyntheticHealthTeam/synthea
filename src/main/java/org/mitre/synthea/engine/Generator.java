@@ -269,6 +269,14 @@ public class Generator implements RandomNumberGenerator {
       HealthRecordEditors hrm = HealthRecordEditors.getInstance();
       hrm.registerEditor(new GrowthDataErrorsEditor());
     }
+
+    try {
+      CensusTract.load(options.state);
+      CensusBlock.load(options.state);
+    }
+    catch(IOException e) {
+      System.out.println("While loading census data got exception: " + e);
+    }
   }
 
   /**
@@ -286,15 +294,6 @@ public class Generator implements RandomNumberGenerator {
    * Generate the population, using the currently set configuration settings.
    */
   public void run() {
-
-    try {
-      CensusTract.load("Maine");
-      CensusBlock.load("Maine");
-     
-    }
-    catch(IOException e) {
-      return;
-    }
 
     // Import the fixed patient demographics records file, if a file path is given.
     if (this.options.fixedRecordPath != null) {

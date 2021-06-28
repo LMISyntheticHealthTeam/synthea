@@ -193,7 +193,6 @@ public final class LifecycleModule extends Module {
     String city = (String) attributes.get(Person.CITY);
     Location location = (Location) attributes.get(Person.LOCATION);
     if (location != null) {
-      System.out.println("the location is not null");
       // should never happen in practice, but can happen in unit tests
       location.assignPoint(person, city);
       person.attributes.put(Person.ZIP, location.getZipCode(city, person));
@@ -209,8 +208,6 @@ public final class LifecycleModule extends Module {
       attributes.put(Person.BIRTH_COUNTRY, birthPlace[2]);
       // For CSV exports so we don't break any existing schemas
       attributes.put(Person.BIRTHPLACE, birthPlace[3]);
-
-      System.out.println("this is the coords: " + attributes.get(Person.COORDINATE));
 
     }
 

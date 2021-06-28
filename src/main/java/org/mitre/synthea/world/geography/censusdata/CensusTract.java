@@ -35,13 +35,16 @@ public class CensusTract {
         List<? extends Map<String,String>> tractsCsv = SimpleCSV.parse(csv);
 
         for (Map<String, String> tractsLine : tractsCsv) {
-            String geoid = tractsLine.get("Tract Code");
-            String state_name = tractsLine.get("State");
+            String geoid = tractsLine.get("tract_code");
+            String state_name = tractsLine.get("state_name");
 
             if (state != null && state.equalsIgnoreCase(state_name)) {
                 CensusTract parsed = csvLineToCensusTract(tractsLine);
 
                 tracts.put(geoid, parsed);
+            }
+            else {
+                throw new IOException("something is wrong with the state from the file and stuff: " + state + " state_name: " + state_name);
             }
         }
         
@@ -54,9 +57,9 @@ public class CensusTract {
 
         t.id = csvline.get("Tract Code");
 
-        t.percentOfPopInFishingAndForestry = Double.parseDouble(csvline.get("% of Farming, fishing, and forestry in >=16 age group"));
-        t.percentOfPopUnemployed = Double.parseDouble(csvline.get("% of Unemployed in >=16 age group"));
-        t.percentOfPopUninsured = Double.parseDouble(csvline.get("% of people without insurance coverage (all age group)"));
+        t.percentOfPopInFishingAndForestry = Double.parseDouble(csvline.get("percent_population_fishing_forestry"));
+        t.percentOfPopUnemployed = Double.parseDouble(csvline.get("percent_population_unemployed"));
+        t.percentOfPopUninsured = Double.parseDouble(csvline.get("percent_population_uninsured"));
 
         return t;
     }

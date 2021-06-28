@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.Comparator;
 
 import org.mitre.synthea.helpers.Config;
 import org.mitre.synthea.helpers.SimpleCSV;
@@ -23,7 +24,11 @@ public class CensusBlock {
 
     /// Store Blocks sorted by their coordinates in order to quickly find
     /// the nearest Census Block to a given point
-    static TreeMap<Point2D.Double, CensusBlock> coordinateToBlock = new TreeMap<Point2D.Double, CensusBlock>();
+    static TreeMap<Point2D.Double, CensusBlock> coordinateToBlock = new TreeMap<Point2D.Double, CensusBlock>(new Comparator<Point2D>(){
+        public int compare(Point2D p1, Point2D p2) {
+            return Double.compare(p1.getX(), p2.getX());
+        }
+    });
 
     /**
      * Determine which CensusBlock stored in the coordinateToBlock map
@@ -78,24 +83,31 @@ public class CensusBlock {
             String geoid = blocksLine.get("GEOID20");
             String state_name = blocksLine.get("state_name");
 
-            if (state != null && state.equalsIgnoreCase(state_name)) {
+            if (state == "" || state.equalsIgnoreCase(state_name)) {
                 CensusBlock parsed = csvLineToCensusBlock(blocksLine);
 
-                map.put(geoid, parsed);
-                coordinateToBlock.put(parsed.coordinate, parsed);
+                if (parsed.tract != null){
+                    map.put(geoid, parsed);
+                    coordinateToBlock.put(parsed.coordinate, parsed);
+                }
             }
         }
         
         return map;
     }
 
-    static CensusBlock csvLineToCensusBlock(Map<String, String> csvline) {
+    static CensusBlock csvLineToCensusBlock(Map<String, String> csvline) throws IOException {
 
         CensusBlock b = new CensusBlock();
 
         b.geoid = csvline.get("GEOID20");
         b.tract_id = b.geoid.substring(0, b.geoid.length() - 4);
+
         b.tract = CensusTract.getTractByGeoid(b.tract_id);
+
+        if (b.tract == null){
+            throw new IOException("Attempting to create CensusBlock without valid tract.");
+        }
 
         b.coordinate = new Point2D.Double(
             Double.parseDouble(csvline.get("INTPTLON20")),

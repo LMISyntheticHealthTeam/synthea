@@ -22,11 +22,21 @@ public class CensusBlock {
     public CensusTract tract;
     public Point2D.Double coordinate;
 
-    /// Store Blocks sorted by their coordinates in order to quickly find
-    /// the nearest Census Block to a given point
+    
+    /**
+     * Store Blocks sorted by their coordinates in order to find
+     * the nearest Census Block to a given point reasonably quickly.
+     * Perhaps could eventually be replaced with a k-d tree
+     */
     static TreeMap<Point2D.Double, CensusBlock> coordinateToBlock = new TreeMap<Point2D.Double, CensusBlock>(new Comparator<Point2D>(){
         public int compare(Point2D p1, Point2D p2) {
-            return Double.compare(p1.getX(), p2.getX());
+            int x_comp = Double.compare(p1.getX(), p2.getX());
+            if (x_comp != 0){
+                return x_comp;
+            }
+            else{
+                return Double.compare(p1.getY(), p2.getY());
+            }
         }
     });
 

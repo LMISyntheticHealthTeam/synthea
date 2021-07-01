@@ -15,7 +15,6 @@ import org.mitre.synthea.helpers.Utilities;
  */
 public class CensusTract {
     public String id;
-    // public Map<String, CensusBlock> blocks;
 
     Double percentOfPopInFishingAndForestry;
     Double percentOfPopUnemployed;
@@ -67,7 +66,7 @@ public class CensusTract {
     public String getRandomOccupation(double random_roll) {
 
         if (random_roll < percentOfPopInFishingAndForestry) {
-            return "fishing-and-forestry";
+            return "fishing_and_forestry";
         }
         else if (random_roll < (percentOfPopInFishingAndForestry + percentOfPopUnemployed)) {
             return "unemployed";

@@ -47,6 +47,8 @@ import org.mitre.synthea.world.concepts.HealthRecord.Medication;
 import org.mitre.synthea.world.concepts.HealthRecord.Observation;
 import org.mitre.synthea.world.concepts.HealthRecord.Procedure;
 import org.mitre.synthea.world.concepts.HealthRecord.Supply;
+import org.mitre.synthea.world.geography.censusdata.CensusBlock;
+import org.mitre.synthea.world.geography.censusdata.CensusTract;
 
 
 /**
@@ -262,7 +264,7 @@ public class CSVExporter {
   private void writeCSVHeaders() throws IOException {
     patients.write("Id,BIRTHDATE,DEATHDATE,SSN,DRIVERS,PASSPORT,"
         + "PREFIX,FIRST,LAST,SUFFIX,MAIDEN,MARITAL,RACE,ETHNICITY,GENDER,BIRTHPLACE,"
-        + "ADDRESS,CITY,STATE,COUNTY,ZIP,LAT,LON,HEALTHCARE_EXPENSES,HEALTHCARE_COVERAGE");
+        + "ADDRESS,CITY,STATE,COUNTY,ZIP,LAT,LON,HEALTHCARE_EXPENSES,HEALTHCARE_COVERAGE,OCCUPATION,CENSUS_BLOCK,CENSUS_TRACT");
     patients.write(NEWLINE);
     allergies.write("START,STOP,PATIENT,ENCOUNTER,CODE,DESCRIPTION");
     allergies.write(NEWLINE);
@@ -583,11 +585,23 @@ public class CSVExporter {
     // HEALTHCARE_EXPENSES
     s.append(person.getHealthcareExpenses()).append(',');
     // HEALTHCARE_COVERAGE
-    s.append(person.getHealthcareCoverage());
+    s.append(person.getHealthcareCoverage()).append(',');
     // QALYS
     // s.append(person.attributes.get("most-recent-qaly")).append(',');
     // DALYS
     // s.append(person.attributes.get("most-recent-daly"));
+
+    s.append((String) person.attributes.getOrDefault(Person.OCCUPATION, ""));
+
+    CensusBlock block = (CensusBlock) person.attributes.get(Person.CENSUS_BLOCK);
+    if (block != null){
+      s.append(',').append(block.toString());
+    }
+
+    CensusTract tract = (CensusTract) person.attributes.get(Person.CENSUS_TRACT);
+    if (tract != null){
+      s.append(',').append(tract.toString());
+    }
 
     s.append(NEWLINE);
     write(s.toString(), patients);

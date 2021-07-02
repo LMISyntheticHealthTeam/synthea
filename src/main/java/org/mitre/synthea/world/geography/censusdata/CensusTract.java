@@ -22,6 +22,10 @@ public class CensusTract {
 
     static HashMap<String, CensusTract> tracts = new HashMap<String, CensusTract>();
 
+    public String toString(){
+        return id;
+    }
+
     public static CensusTract getTractByGeoid(String geoid) {
         return tracts.get(geoid);
     }
@@ -54,7 +58,7 @@ public class CensusTract {
     static CensusTract csvLineToCensusTract(Map<String, String> csvline){
         CensusTract t = new CensusTract();
 
-        t.id = csvline.get("Tract Code");
+        t.id = csvline.get("tract_code");
 
         t.percentOfPopInFishingAndForestry = Double.parseDouble(csvline.get("percent_population_fishing_forestry"));
         t.percentOfPopUnemployed = Double.parseDouble(csvline.get("percent_population_unemployed"));

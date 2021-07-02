@@ -218,6 +218,7 @@ public final class LifecycleModule extends Module {
       if (tract != null){
 
         attributes.put(Person.OCCUPATION, tract.getRandomOccupation(person.rand()));
+        attributes.put(Person.CENSUS_TRACT, tract);
 
       }
 

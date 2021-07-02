@@ -23,6 +23,10 @@ public class CensusBlock {
     public Point2D.Double coordinate;
 
     
+    public String toString(){
+        return geoid;
+    }
+
     /**
      * Store Blocks sorted by their coordinates in order to find
      * the nearest Census Block to a given point reasonably quickly.

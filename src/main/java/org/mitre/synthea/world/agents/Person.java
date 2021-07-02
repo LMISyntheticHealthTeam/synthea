@@ -95,6 +95,7 @@ public class Person implements Serializable, RandomNumberGenerator, QuadTreeElem
   public static final String LINK_ID = "link_id";
   public static final String OCCUPATION = "occupation_exact";
   public static final String CENSUS_BLOCK = "census_block";
+  public static final String CENSUS_TRACT = "census_tract";
   private static final String DEDUCTIBLE = "deductible";
   private static final String LAST_MONTH_PAID = "last_month_paid";
 

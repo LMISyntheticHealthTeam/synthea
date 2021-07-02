@@ -172,64 +172,127 @@
       "remarks": [
         "The incidence rates for adults (18 - 65)."
       ],
-      "distributed_transition": [
+      "complex_transition": [
         {
-          "distribution": 0.000153,
-          "transition": "Spinal_Injury"
-        },
-        {
-          "distribution": 0.000318,
-          "transition": "Gunshot_Injury"
-        },
-        {
-          "distribution": 0.00765,
-          "transition": "Concussion_Injury",
-          "remarks": [
-            "Adults are likely to get concussions from sports, work-related accidents, and ",
-            "motor vehicle accidents. Increasing the incidence in adults by 1.5 from ",
-            "0.0051 --> 0.00765"
+          "condition": {
+            "condition_type": "Occupation",
+            "occupation": "fishing_and_forestry",
+            "remarks": [
+              "workers in the fishing and forestry industry are more likely to ",
+              "suffer from spinal, concussion, broken bone, laceration, sprain, ",
+              "knee, or shoulder injuries than other workers, and so the chance of ",
+              "these injuries occurring for fishing and forestry workers has been ",
+              "increased by a factor of 1.75 compared to other adults."
+            ]
+          },
+          "distributions": [
+            {
+              "distribution": 0.00026775,
+              "transition": "Spinal_Injury"
+            },
+            {
+              "transition": "Gunshot_Injury",
+              "distribution": 0.0003171
+            },
+            {
+              "transition": "Concussion_Injury",
+              "distribution": 0.0133875
+            },
+            {
+              "transition": "Whiplash_Injury",
+              "distribution": 0.00478
+            },
+            {
+              "transition": "Broken_Bone_Injury",
+              "distribution": 0.01225
+            },
+            {
+              "transition": "Burn_Injury",
+              "distribution": 0.00398
+            },
+            {
+              "transition": "Laceration_Injury",
+              "distribution": 0.02625
+            },
+            {
+              "transition": "Sprain_Injury",
+              "distribution": 0.021875
+            },
+            {
+              "transition": "Knee_Injury",
+              "distribution": 0.00399175
+            },
+            {
+              "transition": "Shoulder_Injury",
+              "distribution": 0.0025725
+            },
+            {
+              "transition": "Wait_For_Injury",
+              "distribution": 0.9103284
+            }
           ]
         },
         {
-          "distribution": 0.00478,
-          "transition": "Whiplash_Injury"
-        },
-        {
-          "distribution": 0.007,
-          "transition": "Broken_Bone_Injury",
-          "remarks": [
-            "Adults break fewer bones than children or the elderly. Shifting incidence away ",
-            "from adults towards children. Reducing this incidence by a factor of 8 from ",
-            "0.0583 --> 0.007 "
-          ]
-        },
-        {
-          "distribution": 0.00398,
-          "transition": "Burn_Injury"
-        },
-        {
-          "distribution": 0.015,
-          "transition": "Laceration_Injury"
-        },
-        {
-          "distribution": 0.0125,
-          "transition": "Sprain_Injury"
-        },
-        {
-          "distribution": 0.00229,
-          "transition": "Knee_Injury"
-        },
-        {
-          "distribution": 0.00147,
-          "transition": "Shoulder_Injury"
-        },
-        {
-          "distribution": 0.5,
-          "transition": "Wait_For_Injury",
-          "remarks": [
-            "The GMF's distributed transition will take this transition and automatically adjust the distribution ",
-            "out of 1.0 if none of the other transitions are taken, see: ",
-            "https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Transitions#distributed"
+          "distributions": [
+            {
+              "distribution": 0.000153,
+              "transition": "Spinal_Injury"
+            },
+            {
+              "distribution": 0.0003179999999999999,
+              "transition": "Gunshot_Injury"
+            },
+            {
+              "distribution": 0.00765,
+              "transition": "Concussion_Injury",
+              "remarks": [
+                "Adults are likely to get concussions from sports, work-related accidents, and ",
+                "motor vehicle accidents. Increasing the incidence in adults by 1.5 from ",
+                "0.0051 --> 0.00765"
+              ]
+            },
+            {
+              "distribution": 0.00478,
+              "transition": "Whiplash_Injury"
+            },
+            {
+              "distribution": 0.007,
+              "transition": "Broken_Bone_Injury",
+              "remarks": [
+                "Adults break fewer bones than children or the elderly. Shifting incidence away ",
+                "from adults towards children. Reducing this incidence by a factor of 8 from ",
+                "0.0583 --> 0.007 "
+              ]
+            },
+            {
+              "distribution": 0.00398,
+              "transition": "Burn_Injury"
+            },
+            {
+              "distribution": 0.015,
+              "transition": "Laceration_Injury"
+            },
+            {
+              "distribution": 0.0125,
+              "transition": "Sprain_Injury"
+            },
+            {
+              "distribution": 0.002281,
+              "transition": "Knee_Injury"
+            },
+            {
+              "distribution": 0.00147,
+              "transition": "Shoulder_Injury"
+            },
+            {
+              "distribution": 0.944868,
+              "transition": "Wait_For_Injury",
+              "remarks": [
+                "The GMF's distributed transition will take this transition and automatically adjust the distribution ",
+                "out of 1.0 if none of the other transitions are taken, see: ",
+                "https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Transitions#distributed"
+              ]
+            }
           ]
         }
       ]

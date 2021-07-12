@@ -35,6 +35,8 @@ import org.mitre.synthea.world.concepts.Names;
 import org.mitre.synthea.world.concepts.PediatricGrowthTrajectory;
 import org.mitre.synthea.world.concepts.VitalSign;
 import org.mitre.synthea.world.geography.Location;
+import org.mitre.synthea.world.geography.censusdata.CensusBlock;
+import org.mitre.synthea.world.geography.censusdata.CensusTract;
 
 public final class LifecycleModule extends Module {
   private static final Map<GrowthChart.ChartType, GrowthChart> growthChart =
@@ -178,6 +180,22 @@ public final class LifecycleModule extends Module {
       attributes.put(Person.BIRTH_COUNTRY, birthPlace[2]);
       // For CSV exports so we don't break any existing schemas
       attributes.put(Person.BIRTHPLACE, birthPlace[3]);
+
+    }
+
+    CensusBlock block = CensusBlock.findNearestBlockTo(person.getLonLat());
+    if (block != null) {
+      CensusTract tract = block.getTract();
+
+      if (tract != null){
+
+        attributes.put(Person.OCCUPATION, tract.getRandomOccupation(person.rand()));
+        attributes.put(Person.CENSUS_TRACT, tract);
+
+      }
+
+      attributes.put(Person.CENSUS_BLOCK, block);
+
     }
 
     attributes.put(Person.ACTIVE_WEIGHT_MANAGEMENT, false);

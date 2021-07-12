@@ -35,30 +35,116 @@
     },
     "General_Adult_Population": {
       "type": "Delay",
-      "distributed_transition": [
+      "complex_transition": [
         {
-          "transition": "Condition_Chronic_Low_Back_Pain",
-          "distribution": 0.09
+          "condition": {
+            "condition_type": "And",
+            "conditions": [
+              {            
+                "condition_type": "Occupation",
+                "occupation": "fishing_and_forestry"
+              },
+              {
+                "condition_type": "Gender",
+                "gender": "F"
+              }
+            ]
+          },
+          "distributions": [
+            {
+              "transition": "Condition_Chronic_Low_Back_Pain",
+              "distribution": 0.2394
+            },
+            {
+              "transition": "Condition_Chronic_Neck_Pain",
+              "distribution": 0.12
+            },
+            {
+              "transition": "Condition_Migraine",
+              "distribution": 0.01
+            },
+            {
+              "transition": "Condition_Fibromyalgia",
+              "distribution": 0.03
+            },
+            {
+              "transition": "Terminal",
+              "distribution": 0.72
+            },
+            {
+              "transition": "Condition_Chronic_Neck_Pain_3",
+              "distribution": 0.03
+            }
+          ]
         },
         {
-          "transition": "Condition_Chronic_Neck_Pain",
-          "distribution": 0.12
+          "condition": {
+            "condition_type": "And",
+            "conditions": [
+              {            
+                "condition_type": "Occupation",
+                "occupation": "fishing_and_forestry"
+              },
+              {
+                "condition_type": "Gender",
+                "gender": "M"
+              }
+            ]
+          },
+          "distributions": [
+            {
+              "transition": "Condition_Chronic_Low_Back_Pain",
+              "distribution": 0.0774
+            },
+            {
+              "transition": "Condition_Chronic_Neck_Pain",
+              "distribution": 0.12
+            },
+            {
+              "transition": "Condition_Migraine",
+              "distribution": 0.01
+            },
+            {
+              "transition": "Condition_Fibromyalgia",
+              "distribution": 0.03
+            },
+            {
+              "transition": "Terminal",
+              "distribution": 0.72
+            },
+            {
+              "transition": "Condition_Chronic_Neck_Pain_3",
+              "distribution": 0.03
+            }
+          ]
         },
         {
-          "transition": "Condition_Migraine",
-          "distribution": 0.01
-        },
-        {
-          "transition": "Condition_Fibromyalgia",
-          "distribution": 0.03
-        },
-        {
-          "transition": "Terminal",
-          "distribution": 0.72
-        },
-        {
-          "transition": "Condition_Chronic_Neck_Pain_3",
-          "distribution": 0.03
+          "distributions": [
+            {
+              "transition": "Condition_Chronic_Low_Back_Pain",
+              "distribution": 0.09
+            },
+            {
+              "transition": "Condition_Chronic_Neck_Pain",
+              "distribution": 0.12
+            },
+            {
+              "transition": "Condition_Migraine",
+              "distribution": 0.01
+            },
+            {
+              "transition": "Condition_Fibromyalgia",
+              "distribution": 0.03
+            },
+            {
+              "transition": "Terminal",
+              "distribution": 0.72
+            },
+            {
+              "transition": "Condition_Chronic_Neck_Pain_3",
+              "distribution": 0.03
+            }
+          ]
         }
       ],
       "exact": {

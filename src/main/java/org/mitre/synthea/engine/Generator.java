@@ -53,6 +53,11 @@ import org.mitre.synthea.world.concepts.VitalSign;
 import org.mitre.synthea.world.geography.Demographics;
 import org.mitre.synthea.world.geography.Location;
 
+import org.mitre.synthea.world.geography.censusdata.CensusBlock;
+import org.mitre.synthea.world.geography.censusdata.CensusTract;
+
+import java.io.IOException;
+
 /**
  * Generator creates a population by running the generic modules each timestep per Person.
  */
@@ -289,6 +294,14 @@ public class Generator implements RandomNumberGenerator {
     if (Config.getAsBoolean("growtherrors", false)) {
       HealthRecordEditors hrm = HealthRecordEditors.getInstance();
       hrm.registerEditor(new GrowthDataErrorsEditor());
+    }
+
+    try {
+      CensusTract.load(options.state);
+      CensusBlock.load(options.state);
+    }
+    catch(IOException e) {
+      System.out.println("While loading census data got exception: " + e);
     }
   }
 

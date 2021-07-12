@@ -34,6 +34,7 @@ public class Location implements Serializable {
   private Map<String, Long> populationByCity;
   private Map<String, Long> populationByCityId;
   private Map<String, List<Place>> zipCodes;
+  // private Map<String, >
 
   public final String city;
   private Demographics fixedCity;

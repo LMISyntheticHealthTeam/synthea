@@ -184,6 +184,19 @@ public abstract class Logic implements Serializable {
   }
 
   /**
+   * The Occupation condition type tests a patient's occupation. Synthea supports the following occupations:
+   * "fishing_and_forestry", "unemployed", and "other".
+   */
+  public static class Occupation extends Logic {
+    private String occupation;
+
+    @Override
+    public boolean test(Person person, long time) {
+      return occupation.equalsIgnoreCase((String) person.attributes.get(Person.OCCUPATION));
+    }
+  }
+
+  /**
    * The Observation condition type tests the most recent observation of a given type against a
    * given value. 
    * Implementation Warnings:

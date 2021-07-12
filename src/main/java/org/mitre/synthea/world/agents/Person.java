@@ -96,6 +96,10 @@ public class Person implements Serializable, RandomNumberGenerator, QuadTreeElem
   public static final String CURRENT_WEIGHT_LENGTH_PERCENTILE = "current_weight_length_percentile";
   public static final String RECORD_GROUP = "record_group";
   public static final String LINK_ID = "link_id";
+  public static final String OCCUPATION = "occupation_exact";
+  public static final String CENSUS_BLOCK = "census_block";
+  public static final String CENSUS_TRACT = "census_tract";
+  private static final String DEDUCTIBLE = "deductible";
   private static final String LAST_MONTH_PAID = "last_month_paid";
 
   private final Random random;
